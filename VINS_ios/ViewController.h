@@ -9,23 +9,23 @@
 #import <UIKit/UIKit.h>
 #import <opencv2/imgcodecs/ios.h>
 #import <opencv2/videoio/cap_ios.h>
-#import "feature_tracker.hpp"
+//#import "feature_tracker.hpp"
 #import <mach/mach_time.h>
 #import "global_param.hpp"
-#import "VINS.hpp"
+//#import "VINS.hpp"
 #include <queue>
-#import "draw_result.hpp"
+//#import "draw_result.hpp"
 #import <CoreMotion/CoreMotion.h>
-#include "keyframe.h"
-#include "loop_closure.h"
-#include "keyfame_database.h"
+//#include "keyframe.h"
+//#include "loop_closure.h"
+//#include "keyfame_database.h"
 #import <sys/utsname.h>
 
 @interface ViewController : UIViewController<CvVideoCameraDelegate,UITextViewDelegate>
 {
     CvVideoCamera* videoCamera;
     BOOL isCapturing;
-    cv::Ptr<FeatureTracker> feature_tracker;
+//    cv::Ptr<FeatureTracker> feature_tracker;
     cv::Size frameSize;
     uint64_t prevTime;
     NSCondition *_condition;
@@ -55,16 +55,16 @@
 
 - (void)setVisibleAnimated:(BOOL)visible;
 
-struct IMU_MSG {
-    NSTimeInterval header;
-    Vector3d acc;
-    Vector3d gyr;
-};
+//struct IMU_MSG {
+//    NSTimeInterval header;
+//    Vector3d acc;
+//    Vector3d gyr;
+//};
 
-struct IMG_MSG {
-    NSTimeInterval header;
-    map<int, Vector3d> point_clouds;
-};
+//struct IMG_MSG {
+//    NSTimeInterval header;
+//    map<int, Vector3d> point_clouds;
+//};
 
 struct IMG_DATA {
     NSTimeInterval header;
@@ -77,13 +77,13 @@ struct IMG_DATA_CACHE {
     UIImage *image;
 };
 
-struct VINS_DATA_CACHE {
-    NSTimeInterval header;
-    Vector3f P;
-    Matrix3f R;
-};
+//struct VINS_DATA_CACHE {
+//    NSTimeInterval header;
+//    Vector3f P;
+//    Matrix3f R;
+//};
 
-typedef shared_ptr <IMU_MSG const > ImuConstPtr;
-typedef shared_ptr <IMG_MSG const > ImgConstPtr;
+//typedef shared_ptr <IMU_MSG const > ImuConstPtr;
+//typedef shared_ptr <IMG_MSG const > ImgConstPtr;
 @end
 

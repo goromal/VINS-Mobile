@@ -76,7 +76,7 @@ public:
     static int n_id;
     int img_cnt;
     double current_time;
-    vinsPnP vins_pnp;
+//    vinsPnP vins_pnp;
     bool use_pnp;
     
     /*

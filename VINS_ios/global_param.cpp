@@ -24,6 +24,22 @@ double TIC_Z;
 bool setGlobalParam(DeviceType device)
 {
     switch (device) {
+        case iPhoneXR: // ++++ TODO: GET THE ACTUAL PARAMS ++++
+            printf("Device iPhoneXR param\n");
+            FOCUS_LENGTH_X = 526.600;
+            FOCUS_LENGTH_Y = 526.678;
+            PX = 243.481;
+            PY = 315.280;
+            
+            SOLVER_TIME = 0.06;
+            FREQ = 3;
+            
+            TIC_X = 0.0;
+            TIC_Y = 0.092;
+            TIC_Z = 0.01;
+            return true;
+            break;
+            
         case iPhone7P:
             printf("Device iPhone7 plus param\n");
             FOCUS_LENGTH_X = 526.600;

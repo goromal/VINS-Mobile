@@ -15,6 +15,7 @@ enum DeviceType
     iPhone7,
     iPhone6sP,
     iPhone6s,
+    iPhoneXR,
     iPadPro97,
     iPadPro129,
     unDefine

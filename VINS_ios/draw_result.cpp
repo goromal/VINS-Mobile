@@ -301,64 +301,64 @@ Vector3f DrawResult::findZfromXY(Vector3f point, Vector4f plane)
  */
 void DrawResult::computeAR(vector<Vector3f> &point_cloud, Vector3f &model)
 {
-    if(point_cloud.size() < 10)
-        return;
-    /*
-     startInit = true;
-     if(!planeInit && startInit)
-     {
-     initPlane = findPlane(point_cloud);
-     
-     model = findZfromXY(initPoint,initPlane);
-     planeInit = true;
-     }
-     */
-    vector<Vector3f> inlier_points;
-    int height_range[30];
-    double height_sum[30];
-    vector<vector<Vector3f>> points_clusters;
-    points_clusters.resize(30);
-    for (int i = 0; i < 30; i++)
-    {
-        height_range[i] = 0;
-        height_sum[i] = 0;
-    }
-    for (unsigned int i = 0; i < point_cloud.size(); i++)
-    {
-        double z = point_cloud[i].z();
-        int index = (z + 2.0) / 0.1;
-        if (0 <= index && index < 30)
-        {
-            height_range[index]++;
-            height_sum[index] += z;
-            points_clusters[index].push_back(point_cloud[i]);
-        }
-    }
-    int max_num = 0;
-    int max_index = -1;
-    for (int i = 1; i < 29; i++)
-    {
-        if (max_num < height_range[i])
-        {
-            max_num = height_range[i];
-            max_index = i;
-        }
-    }
-    if (max_index == -1)
-        return;
-    else
-    {
-        inlier_points = points_clusters[max_index];
-        Vector3f tmp_p;
-        tmp_p.setZero();
-        for(int i = 0; i< inlier_points.size(); i++)
-        {
-            tmp_p += inlier_points[i];
-        }
-        model = tmp_p/inlier_points.size();
-        planeInit = true;
-        return;
-    }
+//    if(point_cloud.size() < 10)
+//        return;
+//    /*
+//     startInit = true;
+//     if(!planeInit && startInit)
+//     {
+//     initPlane = findPlane(point_cloud);
+//
+//     model = findZfromXY(initPoint,initPlane);
+//     planeInit = true;
+//     }
+//     */
+//    vector<Vector3f> inlier_points;
+//    int height_range[30];
+//    double height_sum[30];
+//    vector<vector<Vector3f>> points_clusters;
+//    points_clusters.resize(30);
+//    for (int i = 0; i < 30; i++)
+//    {
+//        height_range[i] = 0;
+//        height_sum[i] = 0;
+//    }
+//    for (unsigned int i = 0; i < point_cloud.size(); i++)
+//    {
+//        double z = point_cloud[i].z();
+//        int index = (z + 2.0) / 0.1;
+//        if (0 <= index && index < 30)
+//        {
+//            height_range[index]++;
+//            height_sum[index] += z;
+//            points_clusters[index].push_back(point_cloud[i]);
+//        }
+//    }
+//    int max_num = 0;
+//    int max_index = -1;
+//    for (int i = 1; i < 29; i++)
+//    {
+//        if (max_num < height_range[i])
+//        {
+//            max_num = height_range[i];
+//            max_index = i;
+//        }
+//    }
+//    if (max_index == -1)
+//        return;
+//    else
+//    {
+//        inlier_points = points_clusters[max_index];
+//        Vector3f tmp_p;
+//        tmp_p.setZero();
+//        for(int i = 0; i< inlier_points.size(); i++)
+//        {
+//            tmp_p += inlier_points[i];
+//        }
+//        model = tmp_p/inlier_points.size();
+//        planeInit = true;
+//        return;
+//    }
     
 }
 
@@ -368,37 +368,37 @@ void DrawResult::computeAR(vector<Vector3f> &point_cloud, Vector3f &model)
 
 void DrawResult::drawGround(cv::Mat &result, vector<Vector3f> &point_cloud, Vector3f P_latest, Matrix3f R_latest)
 {
-    Eigen::Matrix3f RIC;
-    RIC = Utility::ypr2R(Vector3d(RIC_y,RIC_p,RIC_r)).cast<float>();
-    cv::Mat aa(HEIGHT,WIDTH,CV_8UC3,Scalar(0,0,0));
-    result = aa;
-    
-    std::vector<Vec2f_> points;
-    for (unsigned int i = 0; i < point_cloud.size(); i++)
-    {
-        Vector3f Pc;
-        Pc = (R_latest * RIC).transpose()* (point_cloud[i] - 1.0*P_latest  - R_latest * Vector3f(TIC_X,TIC_Y,TIC_Z));
-        
-        cv::Point2f pts;
-        pts.x = FOCUS_LENGTH_X * Pc.x() / Pc.z()+ PX;
-        pts.y = FOCUS_LENGTH_Y * Pc.y() / Pc.z()+ PY;
-        
-        points.push_back(Vec2f_(pts.x, pts.y));
-        
-    }
-    Delaunay triangulation;
-    std::vector<Triangle> triangles = triangulation.triangulate(points);
-    //std::cout << triangles.size() << " triangles generated\n";
-    std::vector<Edge> edges = triangulation.getEdges();
-    
-    for(auto e = begin(edges); e != end(edges); e++) {
-        cv::Point2f pts, pts2;
-        pts.x=(*e).p1.x;
-        pts.y=(*e).p1.y;
-        pts2.x=(*e).p2.x;
-        pts2.y=(*e).p2.y;
-        cv::line(result, pts, pts2, cvScalar(100,100,100), 1, 8, 0);
-    }
+//    Eigen::Matrix3f RIC;
+//    RIC = Utility::ypr2R(Vector3d(RIC_y,RIC_p,RIC_r)).cast<float>();
+//    cv::Mat aa(HEIGHT,WIDTH,CV_8UC3,Scalar(0,0,0));
+//    result = aa;
+//
+//    std::vector<Vec2f_> points;
+//    for (unsigned int i = 0; i < point_cloud.size(); i++)
+//    {
+//        Vector3f Pc;
+//        Pc = (R_latest * RIC).transpose()* (point_cloud[i] - 1.0*P_latest  - R_latest * Vector3f(TIC_X,TIC_Y,TIC_Z));
+//
+//        cv::Point2f pts;
+//        pts.x = FOCUS_LENGTH_X * Pc.x() / Pc.z()+ PX;
+//        pts.y = FOCUS_LENGTH_Y * Pc.y() / Pc.z()+ PY;
+//
+//        points.push_back(Vec2f_(pts.x, pts.y));
+//
+//    }
+//    Delaunay triangulation;
+//    std::vector<Triangle> triangles = triangulation.triangulate(points);
+//    //std::cout << triangles.size() << " triangles generated\n";
+//    std::vector<Edge> edges = triangulation.getEdges();
+//
+//    for(auto e = begin(edges); e != end(edges); e++) {
+//        cv::Point2f pts, pts2;
+//        pts.x=(*e).p1.x;
+//        pts.y=(*e).p1.y;
+//        pts2.x=(*e).p2.x;
+//        pts2.y=(*e).p2.y;
+//        cv::line(result, pts, pts2, cvScalar(100,100,100), 1, 8, 0);
+//    }
     
 }
 
